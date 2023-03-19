@@ -1,6 +1,7 @@
 # 221RDB323
 # Danila Sinicins
 # 17. grupa
+import os
 
 def build_heap(data):
     swaps = []
@@ -37,8 +38,8 @@ def main():
         fileName = input()
         
         path = './tests/'    
-        mape = os.path.join(path, fileName)           
-        with open(mape, mode="r") as file:
+        folder = os.path.join(path, fileName)           
+        with open(folder, "r") as file:
             n = int(file.readline())
             data = list(map(int, file.readline().split()))
 
