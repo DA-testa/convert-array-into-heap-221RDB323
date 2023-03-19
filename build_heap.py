@@ -1,41 +1,55 @@
-# python3
-
+# 221RDB323
+# Danila Sinicins
+# 17. grupa
 
 def build_heap(data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    dataLen=len(data)
+    for i in range(dataLen//2, -1, -1):
+        shift_down(data, i, swaps)
     return swaps
+
+
+def shift_down(data, i, swaps):
+    dataLen = len(data)
+    indexMin = i
+    leftChild = 2*i+1
+    rightChild = 2*i+2
+    if leftChild < dataLen and data[leftChild] < data[indexMin]:
+        indexMin = leftChild
+    if rightChild < dataLen and data[rightChild] < data[indexMin]:
+        indexMin = rightChild
+    if indexMin != i:
+        swaps.append((i, indexMin))
+        data[i], data[indexMin] = data[indexMin], data[i]
+        shift_down(data, indexMin, swaps)
 
 
 def main():
     
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    text = input()
+    if "I" in text:
+        n = int(input())
+        data = list(map(int, input().split()))
+        assert len(data) == n
 
+    elif "F" in text:
+        fileName = input()
+        
+        path = './tests/'    
+        mape = os.path.join(path, fileName)           
+        with open(mape, mode="r") as file:
+            n = int(file.readline())
+            data = list(map(int, file.readline().split()))
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
-
-    # calls function to assess the data 
-    # and give back all swaps
     swaps = build_heap(data)
 
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
+    else:
+        print("I/F:")
+        return
 
 
 if __name__ == "__main__":
